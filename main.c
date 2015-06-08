@@ -68,13 +68,21 @@ void	log_txt(char *lg)
 int		main(int argc, char **argv)
 {
 	t_ncurses	nc;
-	t_net	client;
-
+	t_net		client;
+	char		*zappy_cmd;
 	/*
 	**	argv[1] will add entries in radix_tree for auto completion
 	*/
 
 	net_init(&client);
+	alias_init(&(nc.map_alias), &(nc.map_cmd));
+
+	// char *cmd = hash_get(&(nc.map_alias), );
+	// printf("%s\n", cmd);
+	// return (0);
+
+
+
 	if (!nc_start(&nc, argc, argv))
 		return (nc_delete(&nc));
 	while (!nc.stopped)
@@ -86,8 +94,16 @@ int		main(int argc, char **argv)
 				 net_connect(&client);
 			else
 				net_send(&client, nc.input);
-			log_txt(nc.input);
-			nc_add(&nc, nc.input);
+			if ((zappy_cmd = alias_to_cmd(&(nc.map_alias), nc.input)))
+			{
+				log_txt(zappy_cmd);
+				nc_add(&nc, zappy_cmd);
+			}
+			else
+			{
+				log_txt(nc.input);
+				nc_add(&nc, nc.input);
+			}
 		}
 		net_alert(&nc, &client);
 		if (client.is_connected)

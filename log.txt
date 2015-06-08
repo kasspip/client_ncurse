@@ -1,1 +1,9 @@
 /connect localhost 4000
+connect
+connect fdf
+connect
+connect sdfsdf
+player.level
+player.level 1
+player.inventory
+player.inventory 1

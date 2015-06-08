@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <ctype.h>
 # include "radix.h"
-# include "hashtable.h"
+# include "alias.h"
 # include "net.h"
 
 # define RESIZE_LIB_RES 5
@@ -78,6 +78,8 @@ typedef struct		s_ncurses
 	t_search		search;
 	t_map			map;
 	char			*help;
+	t_map			map_alias;
+	t_map			map_cmd;
 }					t_ncurses;
 
 /*

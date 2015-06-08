@@ -32,6 +32,9 @@ SRC =	main.c\
 		net_readwrite.c\
 		net_utils.c\
 		ft_strsplit.c\
+		alias_conversions.c\
+		alias_init.c\
+		alias_utils.c\
 
 OBJ =	$(SRC:.c=.o)
  

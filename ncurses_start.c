@@ -52,7 +52,7 @@ bool			nc_start(t_ncurses *nc, int ac, char **av)
 	nc->stopped = false;
 	init_fcts(nc);
 	start_color();
-	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	nc_display(nc);
 	return (true);
 }

@@ -1,13 +1,13 @@
 #include "net.h"
 
-void	net_init(t_net *net)
+void			net_init(t_net *net)
 {
 	bzero(net, sizeof(t_net));
 	net->ft_write = net_write;
 	net->ft_read = net_read;
 }
 
-int		net_close(t_net *net)
+int				net_close(t_net *net)
 {
 	SSL_free(net->ssl.ssl);
 	close(net->sock);
@@ -16,17 +16,25 @@ int		net_close(t_net *net)
 	return (1);
 }
 
-int		net_parse(char *input, t_net *net)
+static int		net_usage(t_net *net)
+{
+	net->alert = (char**)malloc(sizeof(char*) * 2);
+	net->alert[0] = strdup("Usage: connect <ip> <port(SSL)>");
+	net->alert[1] = 0;
+	return (0);
+}
+
+int				net_parse(char *input, t_net *net)
 {
 	char	**split;
 	char	*port;
 	int		i;
 
-	if (strncmp("/connect ", input, 9))
+	if (strncmp("connect ", input, 8))
 		return (0);
 	split = ft_strsplit(input, ' ');
 	if (!split[1] || !split[2])
-		return (0);
+		return (net_usage(net));
 	net->addr = strdup(split[1]);
 	port = strdup(split[2]);
 	net->port = atoi(port);
