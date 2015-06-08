@@ -78,8 +78,6 @@ typedef struct		s_ncurses
 	t_search		search;
 	t_map			map;
 	char			*help;
-	t_map			map_alias;
-	t_map			map_cmd;
 }					t_ncurses;
 
 /*

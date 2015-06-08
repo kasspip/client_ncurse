@@ -7,3 +7,36 @@ player.level
 player.level 1
 player.inventory
 player.inventory 1
+ppo toto
+msz 10 10
+msz
+tna
+
+
+
+
+
+
+
+
+asdf
+dgfdgg
+
+
+
+
+erteryrteyh
+player.
+ppo
+plv
+pin
+msz 29 39 04234
+player.
+pin
+player.
+ppo
+ppo 42 24
+asdf
+ppo
+msz
+msz 43 34

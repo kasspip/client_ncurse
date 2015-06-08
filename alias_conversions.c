@@ -1,5 +1,12 @@
 #include "ncurses_shell.h"
 
+static char	*token_not_found(char *token)
+{
+	if (token)
+		free(token);
+	return (NULL);
+}
+
 char	*alias_to_cmd(t_map *map_alias, char *input)
 {
 	char	*cmd;
@@ -12,15 +19,16 @@ char	*alias_to_cmd(t_map *map_alias, char *input)
 	ret = NULL;
 	split_token_args(input, &token, &args);
 	if (!token || !(cmd = hash_get(map_alias, token)))
-		return (NULL);
+		return (token_not_found(token));
+	free(token);
 	if (!args)
 		ret = cmd;
 	else
+	{
 		ret = strjoin(cmd, args);
-	printf("token = |%s| args = |%s| ret = |%s|\n", token, args, ret);
-	free(cmd);
-	free(token);
-	free(args);
+		free(args);
+		free(cmd);
+	}
 	return (ret);
 }
 
@@ -36,13 +44,15 @@ char	*cmd_to_alias(t_map *map_cmd, char *input)
 	ret = NULL;
 	split_token_args(input, &token, &args);
 	if (!token || !(alias = hash_get(map_cmd, token)))
-		return (NULL);
+		return (token_not_found(token));
+	free(token);
 	if (!args)
 		ret = alias;
 	else
+	{
 		ret = strjoin(alias, args);
-	free(alias);
-	free(args);
-	free(token);
+		free(alias);
+		free(args);
+	}
 	return (ret);
 }

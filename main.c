@@ -69,22 +69,17 @@ int		main(int argc, char **argv)
 {
 	t_ncurses	nc;
 	t_net		client;
+	t_alias		alias;
 	char		*zappy_cmd;
+
 	/*
 	**	argv[1] will add entries in radix_tree for auto completion
 	*/
 
-	net_init(&client);
-	alias_init(&(nc.map_alias), &(nc.map_cmd));
-
-	// char *cmd = hash_get(&(nc.map_alias), );
-	// printf("%s\n", cmd);
-	// return (0);
-
-
-
 	if (!nc_start(&nc, argc, argv))
 		return (nc_delete(&nc));
+	net_init(&client);
+	alias_init(&(alias.map_alias), &(alias.map_cmd));
 	while (!nc.stopped)
 	{
 		nc_loop(&nc);
@@ -94,7 +89,7 @@ int		main(int argc, char **argv)
 				 net_connect(&client);
 			else
 				net_send(&client, nc.input);
-			if ((zappy_cmd = alias_to_cmd(&(nc.map_alias), nc.input)))
+			if ((zappy_cmd = alias_to_cmd(&(alias.map_alias), nc.input)))
 			{
 				log_txt(zappy_cmd);
 				nc_add(&nc, zappy_cmd);
