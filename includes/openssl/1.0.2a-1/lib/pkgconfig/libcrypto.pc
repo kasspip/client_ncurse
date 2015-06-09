@@ -1,0 +1,12 @@
+prefix=/Volumes/Data/nfs/zfs-student-3/users/2013/cobrecht/.brew/Cellar/openssl/1.0.2a-1
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: OpenSSL-libcrypto
+Description: OpenSSL cryptography library
+Version: 1.0.2a
+Requires: 
+Libs: -L${libdir} -lcrypto
+Libs.private: 
+Cflags: -I${includedir} 

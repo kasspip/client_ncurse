@@ -43,17 +43,15 @@ OBJ =	$(SRC:.c=.o)
  
 GCC =	gcc -g -Wall -Wextra -Werror
 
-LIBRARIES 	= 	-L$(HOME)/.brew/opt/openssl/lib \
+LIBRARIES 	= 	-Linclude/openssl/1.0.2a-1/lib \
 				-lssl\
 				-lcrypto\
 				-lncurses\
 
-INCLUDES 	= 	-I$(HOME)/.brew/opt/openssl/include	\
+INCLUDES 	= 	-Iinclude/openssl/1.0.2a-1/include	\
 				-I includes
 
-%.o:		%.c
-	@echo "\033[1;36;m[Compiling $<]\t\033[0m: " | tr -d '\n'
-	$(GCC) -c $< $(INCLUDES)
+# DYLD_LIBRARY_PATH=`pwd`/include/openssl/1.0.2a-1/lib
 
 all:		$(NAME)
 
@@ -61,6 +59,10 @@ $(NAME):	$(OBJ)
 	@echo "\033[1;35;m[Linking] \t\t\033[0m: " | tr -d '\n'
 	$(GCC) -o $@ $(OBJ)  $(LIBRARIES)
 	@echo "\033[1;32;m[Success] \t\t\t\033[0m"
+
+%.o:		%.c
+	@echo "\033[1;36;m[Compiling $<]\t\033[0m: " | tr -d '\n'
+	$(GCC) -c $< $(INCLUDES)
 
 clean:
 	@echo "\033[0;33;m[Cleaning] \t\t\033[0m: " | tr -d '\n'
