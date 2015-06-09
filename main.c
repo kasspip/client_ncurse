@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rda-cost <rda-cost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cobrecht <cobrecht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/28 13:50:28 by rda-cost          #+#    #+#             */
-/*   Updated: 2015/06/03 15:12:07 by rda-cost         ###   ########.fr       */
+/*   Updated: 2015/06/09 14:38:19 by cobrecht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,34 @@
 #define LOG "log.txt"
 #define MOD  S_IRUSR | S_IWUSR |S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH
 
-void			net_receive(t_ncurses *nc, t_net *net)
+static void		log_txt(char *lg)
 {
+	int				fd;
+	const mode_t	mode = MOD;
+
+	fd = open(LOG, O_RDWR | O_CREAT | O_APPEND, mode);
+	write(fd, lg, strlen(lg));
+	write(fd, "\n", 1);
+	close(fd);
+}
+
+static void		net_receive(t_ncurses *nc, t_net *net)
+{
+	char	*server_response;
+
+	server_response = NULL;
 	net_select(net);
 	if (net->buf_read[0])
 	{
-		nc_add(nc, net->buf_read);
+		server_response = stringf("server > %s", net->buf_read);
 		bzero(net->buf_read, BUF_SIZE);
+		nc_add(nc, server_response);
+		log_txt(server_response);
+		free(server_response);
 	}
 }
 
-void			net_alert(t_ncurses *nc, t_net *net)
+static void		net_alert(t_ncurses *nc, t_net *net)
 {
 	int			i;
 
@@ -45,38 +62,39 @@ void			net_alert(t_ncurses *nc, t_net *net)
 	}
 }
 
-void	log_txt(char *lg)
+static void		input_manager(t_ncurses	*nc, t_net *client, t_alias *alias)
 {
-	int				fd;
-	const mode_t	mode = MOD;
+	char		*zappy_cmd;
 
-	fd = open(LOG, O_RDWR | O_CREAT | O_APPEND, mode);
-	write(fd, lg, strlen(lg));
-	write(fd, "\n", 1);
-	close(fd);
+	if (!client->is_connected && net_parse(nc->input, client))
+		net_connect(client);
+	else if (!strcmp(nc->input, "help"))
+		nc_print_help(nc);
+	else
+	{
+		if ((zappy_cmd = alias_to_cmd(&(alias->map_alias), nc->input)))
+		{
+			log_txt(zappy_cmd);
+			nc_add(nc, zappy_cmd);
+			net_send(client, zappy_cmd);
+		}
+		else
+		{
+			log_txt(nc->input);
+			nc_add(nc, nc->input);
+			net_send(client, nc->input);
+		}
+	}
 }
 
-/*
-**	nc_start open a new ncurses window
-**	nc_loop handles input, history, and line-edition
-**	(char *) nc.input is freed at each start of loop
-**	you have to duplicate it if you want keep it in memory
-**	To add something in the shell, use nc_add
-**	nc_end only calls endwin()
-*/
-
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_ncurses	nc;
 	t_net		client;
 	t_alias		alias;
-	char		*zappy_cmd;
-
-	/*
-	**	argv[1] will add entries in radix_tree for auto completion
-	*/
-
-	if (!nc_start(&nc, argc, argv))
+	
+	(void)argc;
+	if (!nc_start(&nc, argv))
 		return (nc_delete(&nc));
 	net_init(&client);
 	alias_init(&(alias.map_alias), &(alias.map_cmd));
@@ -84,22 +102,7 @@ int		main(int argc, char **argv)
 	{
 		nc_loop(&nc);
 		if (nc.input != NULL)
-		{
-			if (!client.is_connected && net_parse(nc.input, &client))
-				 net_connect(&client);
-			else
-				net_send(&client, nc.input);
-			if ((zappy_cmd = alias_to_cmd(&(alias.map_alias), nc.input)))
-			{
-				log_txt(zappy_cmd);
-				nc_add(&nc, zappy_cmd);
-			}
-			else
-			{
-				log_txt(nc.input);
-				nc_add(&nc, nc.input);
-			}
-		}
+			input_manager(&nc, &client, &alias);
 		net_alert(&nc, &client);
 		if (client.is_connected)
 			net_receive(&nc, &client);

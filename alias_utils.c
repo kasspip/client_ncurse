@@ -1,6 +1,6 @@
 #include "ncurses_shell.h"
 
-static char		*strsub(char const *s, unsigned int start, size_t len)
+char		*strsub(char const *s, unsigned int start, size_t len)
 {
 	char	*r;
 	size_t	i;

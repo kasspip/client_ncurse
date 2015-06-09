@@ -13,10 +13,11 @@ SRC =	main.c\
 		ncurses_history.c\
 		ncurses_completion.c\
 		ncurses_str_extract.c\
+		ncurses_extension.c\
+		ncurses_print_help.c\
 		radix_tree.c\
 		radix_build_tree.c\
 		radix_utils.c\
-		ncurses_extension.c\
 		radix_search.c\
 		gnl.c\
 		radix_wrap.c\
@@ -35,6 +36,8 @@ SRC =	main.c\
 		alias_conversions.c\
 		alias_init.c\
 		alias_utils.c\
+		stringf.c\
+		ft_itoa.c\
 
 OBJ =	$(SRC:.c=.o)
  
@@ -45,7 +48,8 @@ LIBRARIES 	= 	-L$(HOME)/.brew/opt/openssl/lib \
 				-lcrypto\
 				-lncurses\
 
-INCLUDES 	= 	-I$(HOME)/.brew/opt/openssl/include
+INCLUDES 	= 	-I$(HOME)/.brew/opt/openssl/include	\
+				-I includes
 
 %.o:		%.c
 	@echo "\033[1;36;m[Compiling $<]\t\033[0m: " | tr -d '\n'

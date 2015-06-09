@@ -40,3 +40,18 @@ asdf
 ppo
 msz
 msz 43 34
+connect
+connect localhost 4141
+
+
+
+
+quit
+ppo toto
+ppo toto
+server > BIENVENUE
+
+server > BIENVENUE
+
+server > BIENVENUE
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ncurses_display.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rda-cost <rda-cost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cobrecht <cobrecht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/05/29 14:52:36 by rda-cost          #+#    #+#             */
-/*   Updated: 2015/06/06 15:19:59 by rda-cost         ###   ########.fr       */
+/*   Updated: 2015/06/09 13:45:43 by cobrecht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ void			nc_write_ptr(t_ncurses *nc, char *ptr)
 	int	i;
 
 	i = -1;
+	if (ptr[0] == '#')
+		attron(COLOR_PAIR(2));
 	while (ptr[++i])
 		waddch(nc->win, (unsigned int)ptr[i]);
+	attroff(COLOR_PAIR(2));
 }
 
 static void		nc_display_remember(t_ncurses *nc, t_rmb *rmb)
