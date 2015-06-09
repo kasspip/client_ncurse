@@ -43,12 +43,12 @@ OBJ =	$(SRC:.c=.o)
  
 GCC =	gcc -g -Wall -Wextra -Werror
 
-LIBRARIES 	= 	-Linclude/openssl/1.0.2a-1/lib \
+LIBRARIES 	= 	-Lincludes/openssl/1.0.2a-1/lib \
 				-lssl\
 				-lcrypto\
 				-lncurses\
 
-INCLUDES 	= 	-Iinclude/openssl/1.0.2a-1/include	\
+INCLUDES 	= 	-Iincludes/openssl/1.0.2a-1/include	\
 				-I includes
 
 # export DYLD_LIBRARY_PATH=`pwd`/include/openssl/1.0.2a-1/lib
