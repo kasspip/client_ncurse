@@ -51,7 +51,7 @@ LIBRARIES 	= 	-Linclude/openssl/1.0.2a-1/lib \
 INCLUDES 	= 	-Iinclude/openssl/1.0.2a-1/include	\
 				-I includes
 
-# DYLD_LIBRARY_PATH=`pwd`/include/openssl/1.0.2a-1/lib
+# export DYLD_LIBRARY_PATH=`pwd`/include/openssl/1.0.2a-1/lib
 
 all:		$(NAME)
 
