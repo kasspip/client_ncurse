@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ncurses_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rda-cost <rda-cost@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/05/28 13:58:12 by rda-cost          #+#    #+#             */
+/*   Updated: 2015/06/01 14:49:49 by rda-cost         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "net.h"
 
 static void		set_fd(t_net *net)
@@ -25,10 +37,9 @@ static void		check_fd(t_net *net)
 		net->ft_write(net);
 	if (FD_ISSET(net->sock, &net->fd_read))
 		net->ft_read(net);
-
 }
 
-int		net_select(t_net *net)
+int				net_select(t_net *net)
 {
 	set_fd(net);
 	select_fd(net);

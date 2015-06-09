@@ -62,7 +62,7 @@ static void		net_alert(t_ncurses *nc, t_net *net)
 	}
 }
 
-static void		input_manager(t_ncurses	*nc, t_net *client, t_alias *alias)
+static void		input_manager(t_ncurses *nc, t_net *client, t_alias *alias)
 {
 	char		*zappy_cmd;
 
@@ -75,13 +75,11 @@ static void		input_manager(t_ncurses	*nc, t_net *client, t_alias *alias)
 		if ((zappy_cmd = alias_to_cmd(&(alias->map_alias), nc->input)))
 		{
 			log_txt(zappy_cmd);
-			nc_add(nc, zappy_cmd);
 			net_send(client, zappy_cmd);
 		}
 		else
 		{
 			log_txt(nc->input);
-			nc_add(nc, nc->input);
 			net_send(client, nc->input);
 		}
 	}
@@ -92,7 +90,7 @@ int				main(int argc, char **argv)
 	t_ncurses	nc;
 	t_net		client;
 	t_alias		alias;
-	
+
 	(void)argc;
 	if (!nc_start(&nc, argv))
 		return (nc_delete(&nc));

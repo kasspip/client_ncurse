@@ -127,7 +127,6 @@ void				nc_getprompt(t_ncurses *nc);
 void				nc_carriage_return(t_ncurses *nc);
 void				nc_print_help(t_ncurses *nc);
 
-
 /*
 **	nc history
 */

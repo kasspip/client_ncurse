@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ncurses_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rda-cost <rda-cost@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/05/28 13:58:12 by rda-cost          #+#    #+#             */
+/*   Updated: 2015/06/01 14:49:49 by rda-cost         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "net.h"
 
-void			net_send(t_net *net, char *msg)
+void	net_send(t_net *net, char *msg)
 {
 	if (strlen(msg) >= BUF_SIZE)
 		return ;
@@ -17,6 +29,6 @@ void	net_read(t_net *net)
 
 void	net_write(t_net *net)
 {
-    SSL_write(net->ssl.ssl, net->buf_write, strlen(net->buf_write));
-    bzero(net->buf_write, BUF_SIZE);
+	SSL_write(net->ssl.ssl, net->buf_write, strlen(net->buf_write));
+	bzero(net->buf_write, BUF_SIZE);
 }

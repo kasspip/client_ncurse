@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cobrecht <cobrecht@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2013/11/22 10:02:41 by cobrecht          #+#    #+#             */
+/*   Updated: 2015/06/09 14:24:35 by cobrecht         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ncurses_shell.h"
 
 static char	*token_not_found(char *token)
@@ -7,7 +19,7 @@ static char	*token_not_found(char *token)
 	return (NULL);
 }
 
-char	*alias_to_cmd(t_map *map_alias, char *input)
+char		*alias_to_cmd(t_map *map_alias, char *input)
 {
 	char	*cmd;
 	char	*args;
@@ -32,7 +44,7 @@ char	*alias_to_cmd(t_map *map_alias, char *input)
 	return (ret);
 }
 
-char	*cmd_to_alias(t_map *map_cmd, char *input)
+char		*cmd_to_alias(t_map *map_cmd, char *input)
 {
 	char	*alias;
 	char	*args;

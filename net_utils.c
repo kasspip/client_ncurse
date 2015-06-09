@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cobrecht <cobrecht@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2013/11/22 10:02:41 by cobrecht          #+#    #+#             */
+/*   Updated: 2015/06/09 14:24:35 by cobrecht         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "net.h"
 
 void			net_init(t_net *net)
@@ -19,7 +31,7 @@ int				net_close(t_net *net)
 static int		net_usage(t_net *net)
 {
 	net->alert = (char**)malloc(sizeof(char*) * 2);
-	net->alert[0] = strdup("Usage: connect <ip> <port(SSL)>");
+	net->alert[0] = strdup("# Usage: connect <ip> <port(SSL)>");
 	net->alert[1] = 0;
 	return (0);
 }
