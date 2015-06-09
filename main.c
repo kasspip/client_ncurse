@@ -31,17 +31,17 @@ static void		log_txt(char *lg)
 
 static void		net_receive(t_ncurses *nc, t_net *net)
 {
-	char	*server_response;
+	char	*output;
 
-	server_response = NULL;
 	net_select(net);
-	if (net->buf_read[0])
+	if (net->server_response)
 	{
-		server_response = stringf("server > %s", net->buf_read);
-		bzero(net->buf_read, BUF_SIZE);
-		nc_add(nc, server_response);
-		log_txt(server_response);
-		free(server_response);
+		output = stringf("server > %s", net->server_response);
+		nc_add(nc, output);
+		log_txt(output);
+		free(net->server_response);
+		free(output);
+		net->server_response = NULL;
 	}
 }
 

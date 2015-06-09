@@ -62,3 +62,28 @@ server > BIENVENUE
 connect localhost 
 connect sadf
 connect localhost
+server > BIENVENUE
+
+server > BIENVENUE
+
+team1
+server > BIENVENUE
+
+ppo toto
+server > ko
+
+server > BIENVENUE
+
+ppo toto
+server > o
+
+server > BIENVENUE
+
+ppo toto
+server > ko
+
+server > BIENVENUE
+
+ppo toto
+server > ko
+

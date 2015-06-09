@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ncurses_utils.c                                    :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rda-cost <rda-cost@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cobrecht <cobrecht@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/05/28 13:58:12 by rda-cost          #+#    #+#             */
-/*   Updated: 2015/06/01 14:49:49 by rda-cost         ###   ########.fr       */
+/*   Created: 2013/11/22 10:02:41 by cobrecht          #+#    #+#             */
+/*   Updated: 2015/06/09 14:24:35 by cobrecht         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		set_fd(t_net *net)
 	FD_ZERO(&net->fd_read);
 	FD_ZERO(&net->fd_write);
 	FD_SET(net->sock, &net->fd_read);
-	if (net->buf_write[0])
+	if (strlen(net->buf_write))
 		FD_SET(net->sock, &net->fd_write);
 }
 

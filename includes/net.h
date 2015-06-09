@@ -45,7 +45,10 @@ typedef struct		s_net
 	void			(*ft_write)(struct s_net *);
 	char			buf_read[BUF_SIZE];
 	char			buf_write[BUF_SIZE];
+	ssize_t			len_read;
+	ssize_t			len_write;
 	char			**alert;
+	char			*server_response;
 	t_ssl			ssl;
 }					t_net;
 

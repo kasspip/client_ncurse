@@ -52,7 +52,7 @@ static int		open_connection(t_net *net)
 	{
 		close(sd);
 		net->alert = (char**)malloc(sizeof(char*) * 2);
-		net->alert[0] = strdup("# Error: port is invalid.");
+		net->alert[0] = strdup("# Error: Enable to connect to this port.");
 		net->alert[1] = 0;
 		return (-1);
 	}
